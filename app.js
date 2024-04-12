@@ -1,0 +1,15 @@
+import express from "express";
+import dotenv from "dotenv";
+import router from "./routes/router.js";
+import connectDb from "./database/connectDB.js";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+const app = express();
+app.use(cors({origin:"http://localhost:5173",credentials:true}));
+dotenv.config();
+app.use(cookieParser());
+app.use(express.json());
+connectDb();
+app.use(router);
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`server is running on port ${PORT}`));
